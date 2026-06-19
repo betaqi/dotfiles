@@ -1,0 +1,78 @@
+# ─── 脚本运行（nr）
+alias d="nr dev"
+alias b="nr build"
+alias t="nr test"
+alias tw="nr test --watch"
+alias lint="nr lint"
+alias lf="nr lint --fix"
+alias fmt="nr format"
+
+# ─── 包管理（ni）
+alias nid="ni -D"
+alias nx="nlx"
+
+# ─── Python / uv
+alias py="python3"
+alias uvs="uv sync"
+
+# ─── Git 核心
+alias gs='git status'
+alias ga='git add'
+alias gA='git add -A'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gcam='git add -A && git commit -m'
+alias gp='git push'
+alias gpf='git push --force'
+alias gpl='git pull --rebase'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gb='git branch'
+alias gbd='git branch -d'
+alias glo='git log --oneline --graph'
+alias grh1='git reset HEAD~1'
+alias gst='git stash'
+alias gx='git clean -df'
+alias gxn='git clean -dn'
+alias main='git checkout main'
+
+# ─── 目录导航
+alias ..='cd ..'
+alias ...='cd ../..'
+alias -- -='cd -'
+
+# ─── 文件列表
+alias ll='ls -alF'
+alias lt='ls -ltr'
+
+# ─── 安全网
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# ─── Docker
+alias dps='docker ps'
+alias dc='docker-compose'
+alias dcu='docker-compose up -d'
+alias dcd='docker-compose down'
+
+alias reload='source ~/.zshrc'
+
+# 创建并进入目录
+function dir() {
+  mkdir -p "$1" && cd "$1"
+}
+
+# 带参数的 git log
+function glp() {
+  git --no-pager log -"$1"
+}
+
+# PR 操作
+function pr() {
+  if [ "$1" = "ls" ]; then
+    gh pr list
+  else
+    gh pr checkout "$1"
+  fi
+}
