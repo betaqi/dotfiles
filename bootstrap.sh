@@ -35,6 +35,13 @@ fi
 
 echo "==> 6. 用 stow 链接配置"
 brew install stow 2>/dev/null || true
-cd "$(dirname "$0")/mac" && stow -t ~ zsh git starship karabiner
+cd "$(dirname "$0")/mac"
+stow -t ~ zsh starship karabiner
+read -r -p "    是否链接 git 配置(.gitconfig)? 新机器/共用机器建议跳过 [y/N] " ans
+if [[ "$ans" =~ ^[Yy]$ ]]; then
+  stow -t ~ git && echo "    已链接 git 配置"
+else
+  echo "    已跳过 git;日后需要时手动: cd ~/dotfiles/mac && stow -t ~ git"
+fi
 
 echo "✅ 完成!重启终端即可。"
