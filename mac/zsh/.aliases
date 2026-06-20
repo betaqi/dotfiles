@@ -63,11 +63,6 @@ function dir() {
   mkdir -p "$1" && cd "$1"
 }
 
-# dotfiles 一键提交推送
-dotpush() {
-  cd ~/dotfiles && git add -A && git commit -m "${1:-update}" && git push && cd -
-}
-
 # 带参数的 git log
 function glp() {
   git --no-pager log -"$1"

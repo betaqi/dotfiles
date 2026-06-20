@@ -5,10 +5,12 @@ export DOTFILES="$HOME/dotfiles"
 alias dot='cd "$DOTFILES"'
 alias dots='git -C "$DOTFILES" status -s'
 
+# 一键提交推送
 dotpush() {
   git -C "$DOTFILES" add -A
   git -C "$DOTFILES" diff --cached --quiet && { echo "没有改动可提交"; return 0; }
-  git -C "$DOTFILES" commit -m "${1:-update dotfiles}" && git -C "$DOTFILES" push
+  git -C "$DOTFILES" commit -m "${1:-update dotfiles}" || return 1
+  git -C "$DOTFILES" push
 }
 
 dotbrew() {
