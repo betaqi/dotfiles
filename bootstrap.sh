@@ -23,7 +23,17 @@ clone_plugin fast-syntax-highlighting    https://github.com/zdharma-continuum/fa
 clone_plugin zsh-autosuggestions         https://github.com/zsh-users/zsh-autosuggestions
 clone_plugin zsh-history-substring-search https://github.com/zsh-users/zsh-history-substring-search
 
-echo "==> 5. 用 stow 链接配置"
+echo "==> 5. 确保默认 shell 是 zsh"
+ZSH_PATH="$(command -v zsh)"
+if [ "$(dscl . -read /Users/$(whoami) UserShell 2>/dev/null | awk '{print $2}')" != "$ZSH_PATH" ]; then
+  echo "    当前默认 shell 不是 zsh,切换中(可能需要输入密码)..."
+  grep -q "$ZSH_PATH" /etc/shells || echo "$ZSH_PATH" | sudo tee -a /etc/shells >/dev/null
+  chsh -s "$ZSH_PATH"
+else
+  echo "    已是 zsh,跳过"
+fi
+
+echo "==> 6. 用 stow 链接配置"
 brew install stow 2>/dev/null || true
 cd "$(dirname "$0")/mac" && stow -t ~ zsh git starship karabiner
 

@@ -43,9 +43,6 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 source ~/.proxyrc
 source ~/.aliases
 
-# Added by Windsurf
-export PATH="$HOME/.codeium/windsurf/bin:$PATH"
-
 # Added by Antigravity
 export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
