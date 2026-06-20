@@ -1,3 +1,4 @@
+tap "duongductrong/snapzy", "https://github.com/duongductrong/Snapzy"
 tap "farion1231/ccswitch"
 tap "lihaoyun6/tap"
 tap "stanmarek/tap"
@@ -56,6 +57,8 @@ cask "font-jetbrains-mono-nerd-font"
 cask "ghostty"
 # Open-source keystroke visualiser
 cask "keycastr"
+# Native macOS screenshots, recording, annotation, and editing from the menu bar
+cask "duongductrong/snapzy/snapzy"
 # System monitor for the menu bar
 cask "stats"
 # Pin any window to the top of your screen.
