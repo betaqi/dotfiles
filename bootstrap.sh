@@ -54,8 +54,25 @@ else
   echo "    已是 zsh,跳过"
 fi
 
-echo "==> 6. 用 stow 链接配置"
+echo "==> 6. 清理冲突的默认文件,再用 stow 链接配置"
 brew install stow 2>/dev/null || true
+# oh-my-zsh / 系统会生成默认 .zshrc /.zprofile 等,挡住 stow。先把"非软链接"的同名文件备份移走
+TS="$(date +%Y%m%d-%H%M%S)"
+backup_if_real_file() {
+  local f="$HOME/$1"
+  if [ -e "$f" ] && [ ! -L "$f" ]; then   # 存在 且 不是软链接
+    echo "    备份挡路文件 $1 -> $1.bak-$TS"
+    mv "$f" "$f.bak-$TS"
+  fi
+}
+backup_if_real_file .zshrc
+backup_if_real_file .zprofile
+backup_if_real_file .aliases
+[ -e "$HOME/.config/starship.toml" ] && [ ! -L "$HOME/.config/starship.toml" ] && {
+  echo "    备份挡路文件 .config/starship.toml"
+  mv "$HOME/.config/starship.toml" "$HOME/.config/starship.toml.bak-$TS"
+}
+
 cd "$DIR/mac"
 stow -t ~ zsh starship karabiner
 read -r -p "    是否链接 git 配置(.gitconfig)? 新机器/共用机器建议跳过 [y/N] " ans
