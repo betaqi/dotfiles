@@ -36,19 +36,19 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # Added by Windsurf
-export PATH="/Users/taqibe/.codeium/windsurf/bin:$PATH"
+export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
-source "$HOME/.sdkman/bin/sdkman-init.sh"
+[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 source ~/.proxyrc
 source ~/.aliases
 
 # Added by Windsurf
-export PATH="/Users/taqibe/.codeium/windsurf/bin:$PATH"
+export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 
 # Added by Antigravity
-export PATH="/Users/taqibe/.antigravity/antigravity/bin:$PATH"
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-source '/Users/taqibe/.config/ghost-complete/shell/ghost-complete.zsh'
+[ -f "$HOME/.config/ghost-complete/shell/ghost-complete.zsh" ] && source "$HOME/.config/ghost-complete/shell/ghost-complete.zsh"
 # <<< ghost-complete shell integration <<<

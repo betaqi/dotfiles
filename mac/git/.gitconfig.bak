@@ -8,6 +8,6 @@
 	required = true
 [core]
 	autocrlf = input
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/taqibe/.gitignore_global
 [https]
 	proxy = http://127.0.0.1:6152

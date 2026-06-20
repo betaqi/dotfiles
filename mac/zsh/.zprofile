@@ -5,5 +5,5 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 
 # Added by Toolbox App
-export PATH="$PATH:/Users/taqibe/Library/Application Support/JetBrains/Toolbox/scripts"
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
