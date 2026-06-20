@@ -1,0 +1,44 @@
+
+# ============ dotfiles 维护函数 ============
+export DOTFILES="$HOME/dotfiles"
+
+alias dot='cd "$DOTFILES"'
+alias dots='git -C "$DOTFILES" status -s'
+
+dotpush() {
+  git -C "$DOTFILES" add -A
+  git -C "$DOTFILES" diff --cached --quiet && { echo "没有改动可提交"; return 0; }
+  git -C "$DOTFILES" commit -m "${1:-update dotfiles}" && git -C "$DOTFILES" push
+}
+
+dotbrew() {
+  brew bundle dump --file="$DOTFILES/Brewfile" --force
+  echo "✅ Brewfile 已更新($(grep -cE '^(brew|cask) ' "$DOTFILES/Brewfile") 个软件)"
+  git -C "$DOTFILES" add "$DOTFILES/Brewfile"
+  git -C "$DOTFILES" diff --cached --quiet && { echo "Brewfile 无变化"; return 0; }
+  git -C "$DOTFILES" commit -m "chore: 更新 Brewfile" && git -C "$DOTFILES" push
+}
+
+alias dotpull='git -C "$DOTFILES" pull'
+
+dotadd() {
+  local pkg="$1" target="${2/#\~/$HOME}"
+  [ -z "$pkg" ] || [ -z "$target" ] && { echo "用法: dotadd <包名> <路径>  例: dotadd nvim ~/.config/nvim"; return 1; }
+  [ -e "$target" ] || { echo "❌ 找不到 $target"; return 1; }
+  local rel="${target#$HOME/}"
+  [ "$rel" = "$target" ] && { echo "❌ 该路径不在家目录下"; return 1; }
+  local destdir="$DOTFILES/mac/$pkg/$(dirname "$rel")"
+  mkdir -p "$destdir" && mv "$target" "$destdir/" || { echo "❌ 移动失败"; return 1; }
+  ( cd "$DOTFILES/mac" && stow -t ~ "$pkg" ) && \
+    echo "✅ 已纳管 $rel → '$pkg'" && \
+    echo "⚠️  记得把 '$pkg' 加进 bootstrap.sh 第7步的 stow 行"
+}
+
+dotcheck() {
+  local f
+  for f in .zshrc .zprofile .aliases .gitconfig .config/starship.toml .config/karabiner .config/snapzy; do
+    if [ -L "$HOME/$f" ]; then echo "✅ 软链接   $f"
+    elif [ -e "$HOME/$f" ]; then echo "⚠️  普通文件 $f"
+    else echo "➖ 不存在   $f"; fi
+  done
+}
