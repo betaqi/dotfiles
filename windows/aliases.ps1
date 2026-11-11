@@ -24,7 +24,7 @@ function uvs { uv sync @args }
 # Git
 function gs { git status @args }
 function ga { git add @args }
-function gA { git add -A @args }
+function gaa { git add -A @args }
 function gc { git commit @args }
 function gcm { git commit -m @args }
 function gcam {

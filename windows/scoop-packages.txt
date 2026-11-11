@@ -1,6 +1,5 @@
-# Scoop 软件清单(命令行小工具,均在 Main bucket)
-# 一行一个包名,# 开头为注释,bootstrap.ps1 会逐行 scoop install
-# 手动一次性安装:Get-Content scoop-packages.txt | Where-Object { $_ -and $_ -notmatch '^\s*#' } | ForEach-Object { scoop install $_ }
+# Scoop 软件清单（Main bucket）
+# 每行一个包名或 ID，# 后是说明。批量安装命令见 README 的「换 Windows」。
 
 curlie      # curl 的友好封装,输出更易读(winget 无此包,故走 scoop)
 lazygit     # 终端 git TUI

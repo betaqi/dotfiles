@@ -8,6 +8,14 @@
 *.local
 
 
+# Git 全局设置由每台电脑自己管理。mac/git 保留给旧版的本机链接。
+/mac/git
+.gitconfig
+.gitconfig.*
+.gitignore_global
+.gitignore_global.*
+**/.config/git/
+
 # === karabiner 自动备份,无需纳管 ===
 mac/karabiner/.config/karabiner/automatic_backups/
 

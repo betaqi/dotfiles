@@ -7,38 +7,90 @@ alias dots='git -C "$DOTFILES" status -s'
 
 # 一键提交推送
 dotpush() {
-  git -C "$DOTFILES" add -A
-  git -C "$DOTFILES" diff --cached --quiet && { echo "没有改动可提交"; return 0; }
-  git -C "$DOTFILES" commit -m "${1:-update dotfiles}" || return 1
+  git -C "$DOTFILES" add -A || return 1
+  if ! git -C "$DOTFILES" diff --cached --quiet; then
+    git -C "$DOTFILES" commit -m "${1:-update dotfiles}" || return 1
+  fi
   git -C "$DOTFILES" push
 }
 
-dotbrew() {
-  brew bundle dump --file="$DOTFILES/Brewfile" --force
-  echo "✅ Brewfile 已更新($(grep -cE '^(brew|cask) ' "$DOTFILES/Brewfile") 个软件)"
-  git -C "$DOTFILES" add "$DOTFILES/Brewfile"
-  git -C "$DOTFILES" diff --cached --quiet && { echo "Brewfile 无变化"; return 0; }
-  git -C "$DOTFILES" commit -m "chore: 更新 Brewfile" && git -C "$DOTFILES" push
-}
+dotbrew() (
+  local git_dir snapshot
+  git_dir=$(git -C "$DOTFILES" rev-parse --absolute-git-dir) || return 1
+  snapshot=$(mktemp "$git_dir/Brewfile.XXXXXXXX") || return 1
+  trap '/bin/rm -f "$snapshot" "$snapshot.filtered"' EXIT
+  brew bundle dump --no-vscode --force --file="$snapshot" || return 1
+
+  # 新机需要 Ghost Complete，即使当前机器的快照里没有它。
+  {
+    if ! grep -q '^tap "stanmarek/tap"' "$snapshot"; then
+      print -r -- 'tap "stanmarek/tap"'
+    fi
+    awk -F '"' '
+      $1 == "cask " && $2 ~ /(^|\/)karabiner-elements$/ { next }
+      $1 == "brew " && ($2 == "ghost-complete" || $2 == "stanmarek/tap/ghost-complete") {
+        if (has_ghost) next
+        has_ghost = 1
+        sub(/^brew "ghost-complete"/, "brew \"stanmarek/tap/ghost-complete\"")
+      }
+      { print }
+      END { if (!has_ghost) print "brew \"stanmarek/tap/ghost-complete\"" }
+    ' "$snapshot"
+  } > "$snapshot.filtered" || return 1
+  /bin/mv -f "$snapshot.filtered" "$DOTFILES/Brewfile" || return 1
+
+  git -C "$DOTFILES" add -- Brewfile || return 1
+  if ! git -C "$DOTFILES" diff --cached --quiet -- Brewfile; then
+    git -C "$DOTFILES" commit --only -m "chore: 更新 Brewfile" -- Brewfile || return 1
+  fi
+  git -C "$DOTFILES" push
+)
 
 alias dotpull='git -C "$DOTFILES" pull'
 
 dotadd() {
   local pkg="$1" target="${2/#\~/$HOME}"
-  [ -z "$pkg" ] || [ -z "$target" ] && { echo "用法: dotadd <包名> <路径>  例: dotadd nvim ~/.config/nvim"; return 1; }
-  [ -e "$target" ] || { echo "❌ 找不到 $target"; return 1; }
-  local rel="${target#$HOME/}"
-  [ "$rel" = "$target" ] && { echo "❌ 该路径不在家目录下"; return 1; }
-  local destdir="$DOTFILES/mac/$pkg/$(dirname "$rel")"
-  mkdir -p "$destdir" && mv "$target" "$destdir/" || { echo "❌ 移动失败"; return 1; }
-  ( cd "$DOTFILES/mac" && stow -t ~ "$pkg" ) && \
-    echo "✅ 已纳管 $rel → '$pkg'" && \
-    echo "⚠️  记得把 '$pkg' 加进 bootstrap.sh 第7步的 stow 行"
+  if [[ -z $pkg || -z $target || $pkg == -* || $pkg == */* || $pkg == (.|..) ]]; then
+    echo "用法: dotadd <包名> <路径>  例: dotadd nvim ~/.config/nvim" >&2
+    return 1
+  fi
+  target=${target:a}
+  [[ -e $target && $target == "$HOME"/* ]] || { echo "需要家目录里的现有文件或目录" >&2; return 1; }
+  local rel="${target#"$HOME"/}"
+  if [[ $pkg == git || $rel == .gitconfig || $rel == .gitignore_global ||
+        $rel == .config/git || $rel == .config/git/* ]]; then
+    echo "Git 全局配置由本机管理，已保留原路径。" >&2
+    return 1
+  fi
+  local dest="$DOTFILES/mac/$pkg/$rel"
+  if [[ $target -ef $dest ]]; then
+    echo "已纳管 $rel → $pkg"
+    return 0
+  fi
+  if [[ -L $target || ${target:A} != "${HOME:A}"/* || ${target:A} == "${DOTFILES:A}"(|/*) ||
+        -e $dest || -L $dest ]]; then
+    echo "请检查源路径和仓库目标是否已经被其他配置占用: $target → $dest" >&2
+    return 1
+  fi
+  mkdir -p "${dest:h}" || return 1
+  /bin/mv -n "$target" "$dest" || return 1
+  [[ ! -e $target && ! -L $target ]] || return 1
+  if stow -d "$DOTFILES/mac" -t "$HOME" "$pkg" && [[ -e $target ]]; then
+    echo "✅ 已纳管 $rel → $pkg。请把新包名加入 bootstrap.sh 的 stow 命令。"
+    return 0
+  fi
+
+  if [[ ! -e $target && ! -L $target ]] && /bin/mv -n "$dest" "$target" && [[ ! -e $dest ]]; then
+    echo "链接失败，已还原 $target" >&2
+  else
+    echo "链接失败。请检查 $target，原配置保存在 $dest" >&2
+  fi
+  return 1
 }
 
 dotcheck() {
   local f
-  for f in .zshrc .zprofile .aliases .gitconfig .config/starship.toml .config/karabiner .config/snapzy; do
+  for f in .zshrc .zprofile .aliases .config/starship.toml .config/snapzy; do
     if [ -L "$HOME/$f" ]; then echo "✅ 软链接   $f"
     elif [ -e "$HOME/$f" ]; then echo "⚠️  普通文件 $f"
     else echo "➖ 不存在   $f"; fi

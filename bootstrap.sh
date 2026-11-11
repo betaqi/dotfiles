@@ -1,22 +1,42 @@
 #!/usr/bin/env bash
 # 新 Mac 初始化脚本:克隆本仓库后,在 ~/dotfiles 里跑 bash bootstrap.sh
-set -uo pipefail
+set -euo pipefail
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "==> 1. 安装 Homebrew(如未安装)"
-command -v brew >/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if ! command -v brew >/dev/null; then
+  if [[ ! -x /opt/homebrew/bin/brew && ! -x /usr/local/bin/brew ]]; then
+    installer=$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+    /bin/bash -c "$installer"
+  fi
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  else
+    echo "找不到 brew，请完成 Homebrew 安装后重试。" >&2
+    exit 1
+  fi
+fi
 
 echo "==> 2. 信任 Brewfile 用到的第三方 tap"
 # 第三方 tap 默认不受信任,会导致里面的软件(如 ghost-complete)被静默忽略
-grep -E '^tap ' "$DIR/Brewfile" | sed -E 's/^tap "([^"]+)".*/\1/' | while read -r t; do
+sed -nE 's/^tap "([^"]+)".*/\1/p' "$DIR/Brewfile" | while read -r t; do
   brew trust "$t" 2>/dev/null && echo "    trusted: $t" || true
 done
 
 echo "==> 3. 用 Brewfile 安装全部软件(保证不漏)"
-brew bundle --file="$DIR/Brewfile" || echo "    ⚠️ 部分软件未装成功,可稍后手动补装,继续..."
+bundle_ok=true
+if ! brew bundle --file="$DIR/Brewfile"; then
+  bundle_ok=false
+  echo "    部分软件安装失败，将继续链接已有配置。" >&2
+fi
 
 echo "==> 4. 安装 oh-my-zsh(如未安装)"
-[ -d "$HOME/.oh-my-zsh" ] || sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+  installer=$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)
+  KEEP_ZSHRC=yes sh -c "$installer" "" --unattended
+fi
 
 echo "==> 5. 克隆外部 zsh 插件"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
@@ -39,7 +59,7 @@ else
 fi
 
 echo "==> 7. 清理冲突的默认文件,再用 stow 链接配置"
-brew install stow 2>/dev/null || true
+command -v stow >/dev/null || brew install stow
 TS="$(date +%Y%m%d-%H%M%S)"
 backup_if_real_file() {
   local f="$HOME/$1"
@@ -57,12 +77,10 @@ if [ -e "$HOME/.config/starship.toml" ] && [ ! -L "$HOME/.config/starship.toml" 
 fi
 
 cd "$DIR/mac"
-stow -t ~ zsh starship karabiner snapzy
-read -r -p "    是否链接 git 配置(.gitconfig)? 新机器/共用机器建议跳过 [y/N] " ans
-if [[ "$ans" =~ ^[Yy]$ ]]; then
-  stow -t ~ git && echo "    已链接 git 配置"
-else
-  echo "    已跳过 git;日后需要时手动: cd ~/dotfiles/mac && stow -t ~ git"
-fi
+stow -t ~ zsh starship snapzy
 
+if [[ $bundle_ok == false ]]; then
+  echo "配置已链接，软件安装不完整。请重试 brew bundle --file=\"$DIR/Brewfile\"" >&2
+  exit 1
+fi
 echo "✅ 完成!重启终端即可。"

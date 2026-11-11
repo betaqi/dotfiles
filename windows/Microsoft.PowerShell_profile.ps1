@@ -13,7 +13,8 @@ $profileParts = @(
     "starship.ps1",
     "aliases.ps1",
     "proxy.ps1",
-    "npm.ps1"
+    "npm.ps1",
+    "tools.ps1"
 )
 
 foreach ($part in $profileParts) {
