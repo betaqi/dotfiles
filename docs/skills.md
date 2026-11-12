@@ -4,21 +4,15 @@
 
 ## 在 Mac 上保存一次更新
 
-```zsh
-backup-skills
-cd ~/dotfiles
-git add -- skills/
-git diff --cached --stat -- skills/
-```
-
-看一眼这次新增、修改和删除了哪些文件。要把这次 skills 更新推到远端，再运行下面两行。
+更新完 skill 后，在 Mac 的任意目录运行：
 
 ```zsh
-git commit --only -m "更新 skills" -- skills/
-git push
+sync-skills
 ```
 
-如果当前终端还没加载别名，可以直接运行 `bash ~/dotfiles/backup-skills.sh`。
+`sync-skills` 先做本地备份，有变化就只提交 `skills/`，最后推送当前分支。如果上一次推送因网络中断，恢复后再运行一次即可。
+
+想先检查再推送，可以运行 `backup-skills` 和 `dots`，确认后再用 `sync-skills`。新开终端会自动加载这个函数，当前窗口也可以运行 `source ~/.dotfiles-helpers`。
 
 <details>
 <summary>第一次把备份功能提交到自己的仓库</summary>
@@ -26,9 +20,9 @@ git push
 第一次需要把脚本、别名、文档和换行规则一起提交。在仓库根目录运行下面的命令。这份换行规则会让 Windows 取到与 Mac 原件相同的文件内容。
 
 ```zsh
-git add -- .gitattributes backup-skills.sh mac/zsh/.aliases README.md docs/skills.md docs/terminal.md skills/
+git add -- .gitattributes backup-skills.sh mac/zsh/.aliases mac/zsh/.dotfiles-helpers README.md docs/skills.md docs/terminal.md skills/
 git diff --cached --stat
-git commit --only -m "备份 skills 和跨平台恢复配置" -- .gitattributes backup-skills.sh mac/zsh/.aliases README.md docs/skills.md docs/terminal.md skills/
+git commit --only -m "备份 skills 和跨平台恢复配置" -- .gitattributes backup-skills.sh mac/zsh/.aliases mac/zsh/.dotfiles-helpers README.md docs/skills.md docs/terminal.md skills/
 git push
 ```
 

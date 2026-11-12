@@ -14,7 +14,7 @@ dotpush() {
   git -C "$DOTFILES" push
 }
 
-dotbrew() (
+sync-brewfile() (
   local git_dir snapshot
   git_dir=$(git -C "$DOTFILES" rev-parse --absolute-git-dir) || return 1
   snapshot=$(mktemp "$git_dir/Brewfile.XXXXXXXX") || return 1
@@ -45,6 +45,15 @@ dotbrew() (
   fi
   git -C "$DOTFILES" push
 )
+
+sync-skills() {
+  bash "$DOTFILES/backup-skills.sh" || return 1
+  git -C "$DOTFILES" add -A -- skills/ || return 1
+  if ! git -C "$DOTFILES" diff --cached --quiet -- skills/; then
+    git -C "$DOTFILES" commit --only -m "chore: 更新 skills 备份" -- skills/ || return 1
+  fi
+  git -C "$DOTFILES" push
+}
 
 alias dotpull='git -C "$DOTFILES" pull'
 

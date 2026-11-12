@@ -14,7 +14,7 @@ open -e mac/starship/.config/starship.toml
 保存后按回车就能看到新样式。输入 `dots` 查看仓库改动，`git diff -- mac/starship/.config/starship.toml` 查看这个文件改了什么。`dotpush "调整终端样式"` 会提交并推送整个仓库的改动。如果只想提交这个已跟踪的文件，在仓库里运行 `git commit --only -m "调整终端样式" -- mac/starship/.config/starship.toml`，再运行 `git push`。
 
 - **加一个工具的配置。** 例如 `dotadd nvim ~/.config/nvim`，它会把现有配置移入仓库并建立链接。确认工具能读到配置后，把包名加进 `bootstrap.sh` 末尾的 `stow -t ~` 命令，新机安装时也会链接它。[Mac 初始化脚本](../bootstrap.sh)
-- **更新装机清单。** 等这台电脑的软件装齐后运行 `dotbrew`。它根据本机软件更新并推送 Brewfile，保留 Ghost Complete 和对应的软件源，跳过 Karabiner 和 VS Code 扩展。[Brewfile](../Brewfile)
+- **更新装机清单。** 等这台电脑的软件装齐后运行 `sync-brewfile`。它根据本机软件更新并推送 Brewfile，保留 Ghost Complete 和对应的软件源，跳过 Karabiner 和 VS Code 扩展。[Brewfile](../Brewfile)
 - **查环境变量和代理。** Zsh 插件写在 `.zshrc`，登录时加载的 Homebrew 和 Java 路径写在 `.zprofile`。代理端口用 `PROXY_PORT`，可用 `proxy-state` 查看。改完新开终端。[Zsh 配置](../mac/zsh/.zshrc) · [登录配置](../mac/zsh/.zprofile) · [代理配置](../mac/zsh/.proxyrc)
 
 ## Mac 安装排错

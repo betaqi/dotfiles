@@ -6,9 +6,9 @@
 
 ## 旧 Mac 的日常维护
 
-- **装了、改了或卸载了 skill**，先运行 `backup-skills`，再用 `dots` 看这次的变化。备份取自安装目录，删掉下载的 wechatide ZIP 也没关系。确认后提交并推送，其他电脑才能取到。[只提交并推送 skills](docs/skills.md#在-mac-上保存一次更新)
+- **装了、改了或卸载了 skill**，运行 `sync-skills`，把安装目录备份到 dotfiles 并推送。想先看看改了什么，可以用 `backup-skills` 做本地备份，再用 `dots` 查看。[备份和推送 skills](docs/skills.md#在-mac-上保存一次更新)
 - **改了别名、提示符或截图快捷键**，直接用 `dots` 看改动，这些配置已经链接到仓库。如果列出的内容都要同步，运行 `dotpush "调整终端配置"`。它会提交并推送**整个仓库的改动**。
-- **用 Homebrew 装了或卸载了软件**，想把软件清单也更新，就运行 `dotbrew`。它会更新、提交并推送 `Brewfile`。
+- **用 Homebrew 装了或卸载了软件**，想把软件清单也更新，就运行 `sync-brewfile`。它会更新、提交并推送 `Brewfile`。
 - **另一台电脑推送了更新**，在这台 Mac 上运行 `dotpull`。终端配置拉取后新开终端即可生效。如果变动的是 skills，先核对本机改动，再把更新的文件复制回安装目录。[Mac 安装目录](docs/skills.md#在新-mac-恢复) · [Windows 接收更新](docs/skills.md#同步到-windows)
 
 ## 配置改哪里
