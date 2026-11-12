@@ -1,0 +1,240 @@
+{
+  "version": 3,
+  "skills": {
+    "antfu": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/antfu/SKILL.md",
+      "skillFolderHash": "07eb31b9aa453653d9318aa8971c32c058c40dfc",
+      "installedAt": "2026-05-18T13:23:56.756Z",
+      "updatedAt": "2026-05-18T13:23:56.756Z"
+    },
+    "pnpm": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/pnpm/SKILL.md",
+      "skillFolderHash": "3e2f92c74abae6e9d2e4fc45b5d73a7b307348c9",
+      "installedAt": "2026-05-18T13:23:56.763Z",
+      "updatedAt": "2026-05-18T13:23:56.763Z"
+    },
+    "web-design-guidelines": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "skillFolderHash": "f5ec07bc854a6b2e66dc28a02aa6cdc2ab7c23f5",
+      "installedAt": "2026-05-18T13:23:56.763Z",
+      "updatedAt": "2026-05-18T13:23:56.763Z"
+    },
+    "vite": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/vite/SKILL.md",
+      "skillFolderHash": "3c0dc60ce4ffc34fca02aaa7eb21130ae48c8dff",
+      "installedAt": "2026-05-18T13:23:56.763Z",
+      "updatedAt": "2026-05-18T13:23:56.763Z"
+    },
+    "vue-best-practices": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/vue-best-practices/SKILL.md",
+      "skillFolderHash": "8a9b83906ebb17c3c6beafdd6fc43908d5f03fef",
+      "installedAt": "2026-05-18T13:23:56.764Z",
+      "updatedAt": "2026-05-18T13:23:56.764Z"
+    },
+    "vue-testing-best-practices": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/vue-testing-best-practices/SKILL.md",
+      "skillFolderHash": "867c2a3b4daa4f5e8f604073a997ebd52a47676d",
+      "installedAt": "2026-05-18T13:23:56.764Z",
+      "updatedAt": "2026-05-18T13:23:56.764Z"
+    },
+    "vueuse-functions": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/vueuse-functions/SKILL.md",
+      "skillFolderHash": "db05f99f0f983c95859ccfbee3e13535c9493044",
+      "installedAt": "2026-05-18T13:23:56.764Z",
+      "updatedAt": "2026-05-18T13:23:56.764Z"
+    },
+    "tsdown": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/tsdown/SKILL.md",
+      "skillFolderHash": "bc706703dd48db872bc271618422f78b6d23a09b",
+      "installedAt": "2026-05-18T13:23:56.765Z",
+      "updatedAt": "2026-05-18T13:23:56.765Z"
+    },
+    "vue-router-best-practices": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/vue-router-best-practices/SKILL.md",
+      "skillFolderHash": "3da2ed7613689bd1bc1a25ee7c0e4b47a282ec2f",
+      "installedAt": "2026-05-18T13:23:56.765Z",
+      "updatedAt": "2026-05-18T13:23:56.765Z"
+    },
+    "vue": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antfu/skills.git",
+      "skillPath": "skills/vue/SKILL.md",
+      "skillFolderHash": "cff239de1fa9a889b40166c85d13157b8ae5408c",
+      "installedAt": "2026-05-18T13:23:56.765Z",
+      "updatedAt": "2026-05-18T13:23:56.765Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+      "installedAt": "2026-05-18T13:24:59.020Z",
+      "updatedAt": "2026-05-18T13:24:59.020Z"
+    },
+    "python-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-testing-patterns/SKILL.md",
+      "skillFolderHash": "28ce19935b2b48708af69e47e7686936a249c08b",
+      "installedAt": "2026-05-18T14:50:13.868Z",
+      "updatedAt": "2026-05-18T14:50:13.868Z"
+    },
+    "python-design-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-design-patterns/SKILL.md",
+      "skillFolderHash": "d14f37b9654a3e70b1efa2ceae5b9b3bb706d46e",
+      "installedAt": "2026-05-18T15:06:01.786Z",
+      "updatedAt": "2026-05-18T15:06:01.786Z"
+    },
+    "python-performance-optimization": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-performance-optimization/SKILL.md",
+      "skillFolderHash": "f0e64087a8f9685ef5d394b03aefa1dc0accd65a",
+      "installedAt": "2026-05-18T15:06:01.788Z",
+      "updatedAt": "2026-05-18T15:06:01.788Z"
+    },
+    "gsap-core": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-core/SKILL.md",
+      "skillFolderHash": "135754edd728103e329a8df8b471b197375b370e",
+      "installedAt": "2026-06-01T09:03:58.275Z",
+      "updatedAt": "2026-06-01T09:03:58.275Z"
+    },
+    "gsap-react": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-react/SKILL.md",
+      "skillFolderHash": "ac01a338b96fddbc6cf65a89858d2e6068887b39",
+      "installedAt": "2026-06-01T09:03:58.278Z",
+      "updatedAt": "2026-06-01T09:03:58.278Z"
+    },
+    "gsap-timeline": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-timeline/SKILL.md",
+      "skillFolderHash": "37eb5d623c3e14367864d57160acb64f13950994",
+      "installedAt": "2026-06-01T09:03:58.279Z",
+      "updatedAt": "2026-06-01T09:03:58.279Z"
+    },
+    "gsap-scrolltrigger": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-scrolltrigger/SKILL.md",
+      "skillFolderHash": "7838f515e05bfab0a79dd63368a409ddc7d76ee6",
+      "installedAt": "2026-06-01T09:03:58.279Z",
+      "updatedAt": "2026-06-01T09:03:58.279Z"
+    },
+    "gsap-frameworks": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-frameworks/SKILL.md",
+      "skillFolderHash": "5b086fa623be801882128fa16b2a9b446d193029",
+      "installedAt": "2026-06-01T09:03:58.280Z",
+      "updatedAt": "2026-06-01T09:03:58.280Z"
+    },
+    "gsap-performance": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-performance/SKILL.md",
+      "skillFolderHash": "34dec2f051872f8d02df06de97450e448bac9c5e",
+      "installedAt": "2026-06-01T09:03:58.281Z",
+      "updatedAt": "2026-06-01T09:03:58.281Z"
+    },
+    "gsap-utils": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-utils/SKILL.md",
+      "skillFolderHash": "3f7aa617dd2dc7ebf21f30349b9c7b6d8640d789",
+      "installedAt": "2026-06-01T09:03:58.281Z",
+      "updatedAt": "2026-06-01T09:03:58.281Z"
+    },
+    "gsap-plugins": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-plugins/SKILL.md",
+      "skillFolderHash": "e31ccbdb75cf41f0e7df0fec567f6e07956eaca9",
+      "installedAt": "2026-06-01T09:03:58.282Z",
+      "updatedAt": "2026-06-01T09:03:58.282Z"
+    },
+    "markstream-vue": {
+      "source": "Simon-He95/markstream-vue",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Simon-He95/markstream-vue.git",
+      "skillPath": ".agents/skills/markstream-vue/SKILL.md",
+      "skillFolderHash": "00dcf7ffab03737c87d4fdb60dcbbefabc6ce905",
+      "installedAt": "2026-06-16T01:10:06.753Z",
+      "updatedAt": "2026-06-30T08:40:01.084Z"
+    },
+    "markstream-custom-components": {
+      "source": "Simon-He95/markstream-vue",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Simon-He95/markstream-vue.git",
+      "skillPath": ".agents/skills/markstream-custom-components/SKILL.md",
+      "skillFolderHash": "975f6a00bb6ef28fa1c7a37c76c68a3df7852d71",
+      "installedAt": "2026-06-30T08:40:01.081Z",
+      "updatedAt": "2026-06-30T08:40:01.081Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "antigravity-cli",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-code-cli",
+    "opencode",
+    "warp",
+    "zed",
+    "claude-code"
+  ]
+}

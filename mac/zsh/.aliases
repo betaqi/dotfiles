@@ -57,6 +57,7 @@ alias dcu='docker-compose up -d'
 alias dcd='docker-compose down'
 
 alias reload='source ~/.zshrc'
+alias backup-skills='bash ~/dotfiles/backup-skills.sh'
 
 # 创建并进入目录
 function dir() {
