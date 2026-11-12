@@ -1,19 +1,19 @@
 tap "duongductrong/snapzy", "https://github.com/duongductrong/Snapzy"
 tap "farion1231/ccswitch"
 tap "lihaoyun6/tap"
-tap "stanmarek/tap"
-tap "theboredteam/boring-notch"
+tap "stanmarek/tap", "https://github.com/StanMarek/homebrew-tap"
+tap "theboredteam/boring-notch", "https://github.com/TheBoredTeam/homebrew-boring-notch"
 tap "zackelia/formulae"
 # Library and utilities for processing GIFs
 brew "giflib"
 # Vector graphics library with cross-device output support
 brew "cairo"
+# Package acting as bridge between Node projects and their package managers
+brew "corepack"
 # Framework for layout and rendering of i18n text
 brew "pango"
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
-brew "stanmarek/tap/ghost-complete"
-brew "git-lfs"
 # Banner-like program prints strings as ASCII art
 brew "figlet"
 # Image manipulation library
@@ -29,7 +29,7 @@ brew "ni"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
 # Fast, disk space efficient package manager
-brew "pnpm@10", link: true
+brew "pnpm@10"
 # Easily download, build, install, upgrade, and uninstall Python packages
 brew "python-setuptools"
 # Interpreted, interactive, object-oriented programming language
@@ -45,11 +45,10 @@ brew "tree"
 # Internet file retriever
 brew "wget"
 # JavaScript package manager
-brew "yarn"
+brew "yarn", link: false
 # Display management tool
 cask "betterdisplay"
-# Not so boring notch That Rocks 🎸🎶 
-cask "theboredteam/boring-notch/boring-notch"
+cask "boring-notch"
 # Configuration manager for AI coding agents
 cask "cc-switch"
 # Terminal-based AI coding assistant
@@ -59,11 +58,11 @@ cask "font-jetbrains-mono-nerd-font"
 cask "ghostty"
 # Open-source keystroke visualiser
 cask "keycastr"
-# Native macOS screenshots, recording, annotation, and editing from the menu bar
+# Native screenshots, recording, annotation, and editing from the menu bar
 cask "duongductrong/snapzy/snapzy"
 # System monitor for the menu bar
 cask "stats"
-# Pin any window to the top of your screen.
-cask "lihaoyun6/tap/topit"
+cask "topit"
+npm "@fission-ai/openspec"
 npm "node-gyp"
-npm "prettier"
+brew "stanmarek/tap/ghost-complete"
