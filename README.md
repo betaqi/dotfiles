@@ -2,7 +2,7 @@
 
 我在 Mac 上用 Zsh，在 Windows 上用 PowerShell。这里放着两台电脑共用的 Starship 主题、各自的终端配置，以及我给 Codex 和 Claude Code 装的 skills。
 
-[旧 Mac 的日常维护](#旧-mac-的日常维护) · [换一台 Mac](#换一台-mac) · [换 Windows](#换-windows)
+[旧 Mac 的日常维护](#旧-mac-的日常维护) · [Windows 日常维护](#windows-日常维护) · [换一台 Mac](#换一台-mac) · [换 Windows](#换-windows)
 
 ## 旧 Mac 的日常维护
 
@@ -16,6 +16,19 @@
 想先看看 skills 改了什么，可以运行 `backup-skills` 做本地备份，再用 `dots` 查看。[Skills 备份说明](docs/skills.md#在-mac-上保存一次更新)
 
 另一台电脑推送了更新时，在这台 Mac 上运行 `dotpull`。终端配置拉取后新开终端即可生效。如果变动的是 skills，先核对本机改动，再把更新的文件复制回安装目录。[Mac 安装目录](docs/skills.md#在新-mac-恢复) · [Windows 接收更新](docs/skills.md#同步到-windows)
+
+## Windows 日常维护
+
+加载本仓库的 PowerShell 配置后，可以在任意目录运行这些命令。如果 Windows 已经配好、还在用旧版，先运行 `git -C "$HOME\dotfiles" pull --ff-only`，再新开一个 PowerShell 窗口。
+
+| 什么时候用 | 运行什么 | 会做什么 |
+| --- | --- | --- |
+| 要进 dotfiles 仓库，或先看看改过哪些文件 | `dot` 或 `dots` | `dot` 切换目录，`dots` 在原地显示仓库状态。 |
+| 要取回另一台电脑推送的配置 | `dotpull` | 快进拉取仓库更新。改了 PowerShell 配置后新开终端。 |
+| 要把当前仓库的改动都推送出去 | `sync-dotfiles "更新 Windows 配置"` | 暂存全部改动，有变化就提交，最后推送当前分支。 |
+| Mac 上刚运行过 `sync-skills`，Windows 要用新版 | `pull-skills` | 拉取仓库，再将两份 skills 复制到各自的安装目录，保留 Windows 独有的文件。[首次启用与清单选项](docs/skills.md#同步到-windows) |
+
+输入 `gc` 提交，`gcm "说明"` 带说明提交，`gp` 推送。`gcam "说明"` 先暂存全部文件，暂存成功才会提交。
 
 ## 配置改哪里
 

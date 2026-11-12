@@ -41,10 +41,10 @@ Get-Command starship, gs | Select-Object Name, CommandType
 
 | 常用操作 | 命令或位置 |
 | --- | --- |
-| 修改 Git 和项目别名 | `gs` 看状态，`ga README.md` 暂存单个文件，`gaa` 暂存全部。`Get-Command gc -All` 可查同名命令。[别名](../windows/aliases.ps1) |
+| 修改 Git 和项目别名 | `gs` 看状态，`ga README.md` 暂存单个文件，`gaa` 暂存全部。`gc`、`gcm`、`gp` 调用 Git。要使用原来的 PowerShell 命令，分别输入 `Get-Content`、`Get-Command`、`Get-ItemProperty`。[别名](../windows/aliases.ps1) |
 | 设置代理 | `proxy-state` 查看，`proxy-on` / `proxy-off` 控制当前终端，`proxy-gh-on` 开启 GitHub 代理，`proxy-git-off` 清除 Git 代理。端口在 `$script:ProxyPort` 设置。[代理配置](../windows/proxy.ps1) |
 | 切换 npm 下载源 | `npm-cn` 切国内镜像，`npm-official` 切回官方源。[npm 配置](../windows/npm.ps1) |
-| 取回另一台电脑的改动 | 运行 `git -C "$HOME\dotfiles" pull --ff-only`，改了启动脚本就新开一个 PowerShell 标签页。 |
+| 取回另一台电脑的改动 | 运行 `dotpull`。要一起更新已安装的 skills，直接运行 `pull-skills`。改了启动脚本就新开一个 PowerShell 标签页。 |
 
 ## 安装 Windows 工具
 

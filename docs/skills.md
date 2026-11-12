@@ -71,30 +71,17 @@ git push
 git clone https://github.com/betaqi/dotfiles.git "$HOME\dotfiles"
 ```
 
-**首次恢复和以后接收更新**，都运行下面这段。文件会进入两个安装目录，Windows 上的同名文件可能被覆盖。只在 Windows 安装的 skill 会保留。
+配置过本仓库的 PowerShell 后，新开窗口就能用下面的命令。如果只想同步 skills，可以先在当前窗口运行 `. "$HOME\dotfiles\windows\dotfiles.ps1"` 加载函数。
 
 ```powershell
-$repo = Join-Path $HOME 'dotfiles'
-$beforePull = git -C $repo rev-parse HEAD
-if ($LASTEXITCODE -ne 0) { throw '请先克隆 dotfiles 仓库。' }
-git -C $repo pull --ff-only
-if ($LASTEXITCODE -ne 0) { throw '仓库更新失败，请检查 Git 输出。' }
-git -C $repo diff --no-renames --diff-filter=D --name-only $beforePull HEAD -- skills/cc-switch skills/agents
-
-robocopy "$repo\skills\cc-switch" "$HOME\.cc-switch\skills" /E /R:1 /W:1
-if ($LASTEXITCODE -ge 8) { throw 'CC Switch skills 复制失败。' }
-robocopy "$repo\skills\agents" "$HOME\.agents\skills" /E /R:1 /W:1
-if ($LASTEXITCODE -ge 8) { throw '通用 skills 复制失败。' }
+pull-skills
 ```
 
-- Git 列出了删除路径时，对照清理 Windows 安装目录里的旧文件。要卸载整个 skill，就在对应管理工具里操作。
-- Windows 的通用 skills 如果全部跟随 Mac，可继续运行下面一行。Windows 也有独立安装的通用 skills 时，保留本机清单。
+- 它先用 Git 快进拉取仓库，再把 `skills/cc-switch` 和 `skills/agents` 分别复制到 `$HOME\.cc-switch\skills` 和 `$HOME\.agents\skills`。同名文件会更新，Windows 独有的文件会保留。
+- 本次拉取中删除的路径会以 `D` 列出，方便对照清理旧文件。要卸载整个 skill，就在对应管理工具里操作。
+- 首次缺少通用安装清单时会复制一份，已有的清单默认保留。如果 Windows 的通用 skills 全部跟随 Mac，使用 `pull-skills -IncludeLockfile` 一起更新清单。
 
-```powershell
-Copy-Item -LiteralPath "$repo\skills\agents-lock.json" -Destination "$HOME\.agents\.skill-lock.json" -Force
-```
-
-打开 CC Switch，在「Skills → 存储与同步」选「CC Switch 目录」和「自动」。**新加的 skill** 用「添加 Skill → 导入本机已有」，再选在哪个应用启用。**已经启用的 skill** 更新后，点「立即重新同步」。[CC Switch 同步说明](https://github.com/farion1231/cc-switch/blob/v4.0.6/docs/user-manual/zh/3-extensions/3.3-skills.md#存储与同步) · [Robocopy 返回码](https://learn.microsoft.com/windows-server/administration/windows-commands/robocopy#exit-return-codes)
+打开 CC Switch，在「Skills → 存储与同步」选「CC Switch 目录」和「自动」。**新加的 skill** 用「添加 Skill → 导入本机已有」，再选在哪个应用启用。**已经启用的 skill** 更新后，点「立即重新同步」。[CC Switch 同步说明](https://github.com/farion1231/cc-switch/blob/v4.0.6/docs/user-manual/zh/3-extensions/3.3-skills.md#存储与同步)
 
 例如在 Codex 中启用 wechatide 后，运行下面这行应返回 `True`。用 Claude Code 的话，把 `.codex` 换成 `.claude`。实际编译小程序还需要 Windows 版微信开发者工具。
 

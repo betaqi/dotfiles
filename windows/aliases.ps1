@@ -22,6 +22,7 @@ function py { python @args }
 function uvs { uv sync @args }
 
 # Git
+Remove-Item -LiteralPath Alias:gc, Alias:gcm, Alias:gp -Force -ErrorAction SilentlyContinue
 function gs { git status @args }
 function ga { git add @args }
 function gaa { git add -A @args }
@@ -29,6 +30,7 @@ function gc { git commit @args }
 function gcm { git commit -m @args }
 function gcam {
     git add -A
+    if ($LASTEXITCODE -ne 0) { throw "git add failed; commit skipped." }
     git commit -m @args
 }
 function gp { git push @args }
