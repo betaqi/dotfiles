@@ -6,7 +6,7 @@ alias dot='cd "$DOTFILES"'
 alias dots='git -C "$DOTFILES" status -s'
 
 # 一键提交推送
-dotpush() {
+sync-dotfiles() {
   git -C "$DOTFILES" add -A || return 1
   if ! git -C "$DOTFILES" diff --cached --quiet; then
     git -C "$DOTFILES" commit -m "${1:-update dotfiles}" || return 1
@@ -57,10 +57,10 @@ sync-skills() {
 
 alias dotpull='git -C "$DOTFILES" pull'
 
-dotadd() {
+track-config() {
   local pkg="$1" target="${2/#\~/$HOME}"
   if [[ -z $pkg || -z $target || $pkg == -* || $pkg == */* || $pkg == (.|..) ]]; then
-    echo "用法: dotadd <包名> <路径>  例: dotadd nvim ~/.config/nvim" >&2
+    echo "用法: track-config <包名> <路径>  例: track-config nvim ~/.config/nvim" >&2
     return 1
   fi
   target=${target:a}

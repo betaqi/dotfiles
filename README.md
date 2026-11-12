@@ -6,10 +6,16 @@
 
 ## 旧 Mac 的日常维护
 
-- **装了、改了或卸载了 skill**，运行 `sync-skills`，把安装目录备份到 dotfiles 并推送。想先看看改了什么，可以用 `backup-skills` 做本地备份，再用 `dots` 查看。[备份和推送 skills](docs/skills.md#在-mac-上保存一次更新)
-- **改了别名、提示符或截图快捷键**，直接用 `dots` 看改动，这些配置已经链接到仓库。如果列出的内容都要同步，运行 `dotpush "调整终端配置"`。它会提交并推送**整个仓库的改动**。
-- **用 Homebrew 装了或卸载了软件**，想把软件清单也更新，就运行 `sync-brewfile`。它会更新、提交并推送 `Brewfile`。
-- **另一台电脑推送了更新**，在这台 Mac 上运行 `dotpull`。终端配置拉取后新开终端即可生效。如果变动的是 skills，先核对本机改动，再把更新的文件复制回安装目录。[Mac 安装目录](docs/skills.md#在新-mac-恢复) · [Windows 接收更新](docs/skills.md#同步到-windows)
+| 什么时候用 | 运行什么 | 会做什么 |
+| --- | --- | --- |
+| 第一次想把某个工具的配置存进 dotfiles，比如 Neovim | `track-config nvim ~/.config/nvim` | 把配置移入仓库，在原位置建软链接。这一步只改本机，之后再用 `sync-dotfiles` 推送。[新 Mac 如何自动链接](docs/terminal.md#在-mac-上改配置) |
+| 改了别名、提示符或截图快捷键，准备把仓库里的改动一起推送 | `sync-dotfiles "调整终端配置"` | 提交并推送**整个仓库的改动**。先用 `dots` 看一眼有哪些文件。 |
+| 用 Homebrew 装了或卸载了软件，想更新装机清单 | `sync-brewfile` | 重新生成 `Brewfile`，有变化就只提交这个文件，然后推送。 |
+| 安装、修改或卸载了 skill，想让其他电脑取到最新版本 | `sync-skills` | 先备份已安装的 skills，有变化就只提交 `skills/`，然后推送。 |
+
+想先看看 skills 改了什么，可以运行 `backup-skills` 做本地备份，再用 `dots` 查看。[Skills 备份说明](docs/skills.md#在-mac-上保存一次更新)
+
+另一台电脑推送了更新时，在这台 Mac 上运行 `dotpull`。终端配置拉取后新开终端即可生效。如果变动的是 skills，先核对本机改动，再把更新的文件复制回安装目录。[Mac 安装目录](docs/skills.md#在新-mac-恢复) · [Windows 接收更新](docs/skills.md#同步到-windows)
 
 ## 配置改哪里
 
@@ -22,8 +28,6 @@
 | 改终端启动配置或代理 | [Zsh 启动配置](mac/zsh/.zshrc) · [Mac 代理](mac/zsh/.proxyrc) · [PowerShell 启动配置](windows/Microsoft.PowerShell_profile.ps1) · [Windows 代理](windows/proxy.ps1) |
 | 改截图快捷键 | [Snapzy 配置](mac/snapzy/.config/snapzy/config.toml) |
 | 改下次装机的软件清单 | [Mac 的 Brewfile](Brewfile) · [Windows 的 winget 清单](windows/winget-packages.txt) · [Scoop 清单](windows/scoop-packages.txt) |
-
-要把另一个工具的配置加进仓库，可以用 `dotadd`。[以 Neovim 为例](docs/terminal.md#在-mac-上改配置)
 
 ## 换一台 Mac
 
